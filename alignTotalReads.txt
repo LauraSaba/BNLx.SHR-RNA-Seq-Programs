@@ -1,0 +1,86 @@
+####################################
+##  Characterizing Trimmed Reads  ##
+####################################
+
+export PATH=$HOME/bin:$PATH
+export PYTHONPATH=$HOME/bin:$PYTHONPATH
+
+cd /data/Users/flinks/totalRNA/BNLX1/trimmedFastq
+awk  '/@HWI/ {getline; print length($0)}' *.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+Average Read Length =  95.7101  and Number of Reads =  174727110
+
+cd /data/Users/flinks/totalRNA/BNLX2/trimmedFastq
+awk  '/@HWI/ {getline; print length($0)}' *.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+Average Read Length =  96.4202  and Number of Reads =  188849460
+
+cd /data/Users/flinks/totalRNA/BNLX3/trimmedFastq
+awk  '/@HWI/ {getline; print length($0)}' *.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+Average Read Length =  96.7065  and Number of Reads =  203425206
+
+cd /data/Users/flinks/totalRNA/SHRH1/trimmedFastq
+awk  '/@HWI/ {getline; print length($0)}' *.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+Average Read Length =  96.2302  and Number of Reads =  190317938
+
+SHR2???
+
+cd /data/Users/flinks/totalRNA/SHRH3/trimmedFastq
+awk  '/@HWI/ {getline; print length($0)}' *.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+
+#########################################################
+##  Aligning Trimmed Reads to Strain-Specific Genomes  ##
+#########################################################
+
+# bowtie version 2.1.0
+# tophat version 2.0.9
+
+export PATH=$HOME/bin:$PATH
+export PYTHONPATH=$HOME/bin:$PYTHONPATH
+
+cd /data/Users/flinks/totalRNA/BNLX1/trimmedFastq
+tophat2 -p 8 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/totalRNA/totalRNA.alignedReads/BNLx1.total.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/BNLX_rn5_Genome Lx1_TGACCA_L001_R1_001.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_002.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_003.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_004.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_005.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_006.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_007.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_008.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_009.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_010.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_011.fastq.ft_val_1.fq,Lx1_TGACCA_L001_R1_012.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_001.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_002.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_003.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_004.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_005.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_006.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_007.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_008.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_009.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_010.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_011.fastq.ft_val_1.fq,Lx1_TGACCA_L004_R1_012.fastq.ft_val_1.fq Lx1_TGACCA_L001_R2_001.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_002.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_003.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_004.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_005.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_006.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_007.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_008.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_009.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_010.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_011.fastq.ft_val_2.fq,Lx1_TGACCA_L001_R2_012.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_001.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_002.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_003.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_004.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_005.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_006.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_007.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_008.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_009.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_010.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_011.fastq.ft_val_2.fq,Lx1_TGACCA_L004_R2_012.fastq.ft_val_2.fq
+
+cd /data/Users/flinks/totalRNA/BNLX2/trimmedFastq
+tophat2 -p 8 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/totalRNA/totalRNA.alignedReads/BNLx2.total.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/BNLX_rn5_Genome Lx2_ACAGTG_L002_R1_001.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_002.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_003.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_004.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_005.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_006.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_007.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_008.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_009.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_010.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_011.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_012.fastq.ft_val_1.fq,Lx2_ACAGTG_L002_R1_013.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_001.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_002.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_003.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_004.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_005.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_006.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_007.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_008.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_009.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_010.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_011.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_012.fastq.ft_val_1.fq,Lx2_ACAGTG_L005_R1_013.fastq.ft_val_1.fq Lx2_ACAGTG_L002_R2_001.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_002.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_003.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_004.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_005.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_006.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_007.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_008.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_009.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_010.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_011.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_012.fastq.ft_val_2.fq,Lx2_ACAGTG_L002_R2_013.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_001.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_002.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_003.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_004.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_005.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_006.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_007.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_008.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_009.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_010.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_011.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_012.fastq.ft_val_2.fq,Lx2_ACAGTG_L005_R2_013.fastq.ft_val_2.fq
+
+cd /data/Users/flinks/totalRNA/BNLX3/trimmedFastq
+tophat2 -p 4 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/totalRNA/totalRNA.alignedReads/BNLx3.total.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/BNLX_rn5_Genome Lx3_GCCAAT_L003_R1_001.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_002.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_003.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_004.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_005.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_006.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_007.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_008.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_009.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_010.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_011.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_012.fastq.ft_val_1.fq,Lx3_GCCAAT_L003_R1_013.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_001.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_002.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_003.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_004.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_005.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_006.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_007.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_008.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_009.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_010.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_011.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_012.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_013.fastq.ft_val_1.fq,Lx3_GCCAAT_L004_R1_014.fastq.ft_val_1.fq Lx3_GCCAAT_L003_R2_001.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_002.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_003.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_004.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_005.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_006.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_007.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_008.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_009.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_010.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_011.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_012.fastq.ft_val_2.fq,Lx3_GCCAAT_L003_R2_013.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_001.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_002.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_003.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_004.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_005.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_006.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_007.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_008.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_009.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_010.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_011.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_012.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_013.fastq.ft_val_2.fq,Lx3_GCCAAT_L004_R2_014.fastq.ft_val_2.fq
+
+cd /data/Users/flinks/totalRNA/SHRH1/trimmedFastq
+tophat2 -p 8 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/totalRNA/totalRNA.alignedReads/SHR1.total.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/SHRH_rn5_Genome H1_CAGATC_L001_R1_001.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_002.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_003.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_004.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_005.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_006.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_007.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_008.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_009.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_010.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_011.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_012.fastq.ft_val_1.fq,H1_CAGATC_L001_R1_013.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_001.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_002.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_003.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_004.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_005.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_006.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_007.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_008.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_009.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_010.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_011.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_012.fastq.ft_val_1.fq,H1_CAGATC_L005_R1_013.fastq.ft_val_1.fq H1_CAGATC_L001_R2_001.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_002.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_003.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_004.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_005.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_006.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_007.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_008.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_009.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_010.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_011.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_012.fastq.ft_val_2.fq,H1_CAGATC_L001_R2_013.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_001.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_002.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_003.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_004.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_005.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_006.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_007.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_008.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_009.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_010.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_011.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_012.fastq.ft_val_2.fq,H1_CAGATC_L005_R2_013.fastq.ft_val_2.fq
+
+SHRH2???
+
+cd /data/Users/flinks/totalRNA/SHRH3/trimmedFastq
+tophat2 -p 8 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/totalRNA/totalRNA.alignedReads/SHR3.total.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/SHRH_rn5_Genome H3_ACTTGA_L003_R1_001.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_002.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_003.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_004.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_005.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_006.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_007.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_008.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_009.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_010.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_011.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_012.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_013.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_014.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_015.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_016.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_017.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_018.fastq.ft_val_1.fq,H3_ACTTGA_L003_R1_019.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_001.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_002.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_003.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_004.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_005.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_006.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_007.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_008.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_009.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_010.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_011.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_012.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_013.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_014.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_015.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_016.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_017.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_018.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_019.fastq.ft_val_1.fq,H3_ACTTGA_L005_R1_020.fastq.ft_val_1.fq H3_ACTTGA_L003_R2_001.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_002.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_003.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_004.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_005.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_006.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_007.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_008.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_009.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_010.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_011.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_012.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_013.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_014.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_015.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_016.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_017.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_018.fastq.ft_val_2.fq,H3_ACTTGA_L003_R2_019.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_001.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_002.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_003.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_004.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_005.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_006.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_007.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_008.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_009.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_010.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_011.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_012.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_013.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_014.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_015.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_016.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_017.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_018.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_019.fastq.ft_val_2.fq,H3_ACTTGA_L005_R2_020.fastq.ft_val_2.fq
+
+cd /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/totalRNA/totalRNA.alignedReads/
+samtools sort ./BNLx1.total.v2/accepted_hits.bam BNLx1.total
+samtools sort ./BNLx2.total.v2/accepted_hits.bam BNLx2.total
+samtools sort ./BNLx3.total.v2/accepted_hits.bam BNLx3.total
+
+samtools sort ./SHR1.total.v2/accepted_hits.bam SHR1.total
+samtools sort ./SHR2.total.v2/accepted_hits.bam SHR2.total
+samtools sort ./SHR3.total.v2/accepted_hits.bam SHR3.total
+
+
+
+##################################################################################
+##  Consolidating Reads by Strain and Executing a Transcriptome Reconstruction  ##
+##################################################################################
+
+# bowtie version 2.1.0
+# tophat version 2.0.9
+# samtools version 0.1.19.0
+
+export PATH=$HOME/bin:$PATH
+export PYTHONPATH=$HOME/bin:$PYTHONPATH
+
+cd /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/totalRNA/totalRNA.alignedReads/
+samtools merge - BNLx1.total.bam BNLx2.total.bam BNLx3.total.bam | samtools sort - BNLx.total 
+cufflinks -u --seed 1110 -p 4 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/totalRNA/totalRNA.reconstruction/BNLx.total BNLx.total.bam
+
+
+
+
+
+
