@@ -1,0 +1,158 @@
+####################################
+##  Characterizing Trimmed Reads  ##
+####################################
+
+export PATH=$HOME/bin:$PATH
+export PYTHONPATH=$HOME/bin:$PYTHONPATH
+
+cd /data/Users/flinks/IlluminaPolyA/BNLX1/fastq
+awk  '/@HWI/ {getline; print length($0)}' *.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+#Average Read Length =  94.3421  and Number of Reads =  85873264
+
+cd /data/Users/flinks/IlluminaPolyA/BNLX2/fastq
+awk  '/@HWI/ {getline; print length($0)}' *.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+#Average Read Length =  94.4301  and Number of Reads =  31227668
+
+cd /data/Users/flinks/IlluminaPolyA/BNLX3/fastq
+awk  '/@HWI/ {getline; print length($0)}' *.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+#Average Read Length =  94.4047  and Number of Reads =  32440102
+
+cd /data/Users/flinks/IlluminaPolyA/SHRH1/fastq
+awk  '/@HWI/ {getline; print length($0)}' *.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+#Average Read Length =  94.327  and Number of Reads =  107550194
+
+cd /data/Users/flinks/IlluminaPolyA/SHRH2/fastq
+awk  '/@HWI/ {getline; print length($0)}' *.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+#Average Read Length =  94.8715  and Number of Reads =  56932130
+
+cd /data/Users/flinks/IlluminaPolyA/SHRH3/fastq
+awk  '/@HWI/ {getline; print length($0)}' *.fastq.ft_val_*.fq | awk '{sum+=$1} END { print "Average Read Length = ",sum/NR," and Number of Reads = ",NR}'
+#Average Read Length =  94.3559  and Number of Reads =  58870706
+
+#########################################################
+##  Aligning Trimmed Reads to Strain-Specific Genomes  ##
+#########################################################
+
+# bowtie version 2.1.0
+# tophat version 2.0.9
+
+export PATH=$HOME/bin:$PATH
+export PYTHONPATH=$HOME/bin:$PYTHONPATH
+
+cd /data/Users/flinks/IlluminaPolyA/BNLX1/fastq
+tophat2 -p 8 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/polyA/polyA.alignedReads/BNLx1.polyA.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/BNLX_rn5_Genome BN_Lx_1_CGATGT_L006_R1_001.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L006_R1_002.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L006_R1_003.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L006_R1_004.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L006_R1_005.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L007_R1_001.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L007_R1_002.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L007_R1_003.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L007_R1_004.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L007_R1_005.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L007_R1_006.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L007_R1_007.fastq.ft_val_1.fq,BN_Lx_1_CGATGT_L007_R1_008.fastq.ft_val_1.fq BN_Lx_1_CGATGT_L006_R2_001.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L006_R2_002.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L006_R2_003.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L006_R2_004.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L006_R2_005.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L007_R2_001.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L007_R2_002.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L007_R2_003.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L007_R2_004.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L007_R2_005.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L007_R2_006.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L007_R2_007.fastq.ft_val_2.fq,BN_Lx_1_CGATGT_L007_R2_008.fastq.ft_val_2.fq
+
+cd /data/Users/flinks/IlluminaPolyA/BNLX2/fastq
+tophat2 -p 8 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/polyA/polyA.alignedReads/BNLx2.polyA.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/BNLX_rn5_Genome BN_Lx_2_TTAGGC_L006_R1_001.fastq.ft_val_1.fq,BN_Lx_2_TTAGGC_L006_R1_002.fastq.ft_val_1.fq,BN_Lx_2_TTAGGC_L006_R1_003.fastq.ft_val_1.fq,BN_Lx_2_TTAGGC_L006_R1_004.fastq.ft_val_1.fq,BN_Lx_2_TTAGGC_L006_R1_005.fastq.ft_val_1.fq,BN_Lx_2_TTAGGC_L007_R1_001.fastq.ft_val_1.fq BN_Lx_2_TTAGGC_L006_R2_001.fastq.ft_val_2.fq,BN_Lx_2_TTAGGC_L006_R2_002.fastq.ft_val_2.fq,BN_Lx_2_TTAGGC_L006_R2_003.fastq.ft_val_2.fq,BN_Lx_2_TTAGGC_L006_R2_004.fastq.ft_val_2.fq,BN_Lx_2_TTAGGC_L006_R2_005.fastq.ft_val_2.fq,BN_Lx_2_TTAGGC_L007_R2_001.fastq.ft_val_2.fq
+
+cd /data/Users/flinks/IlluminaPolyA/BNLX3/fastq
+tophat2 -p 8 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/polyA/polyA.alignedReads/BNLx3.polyA.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/BNLX_rn5_Genome BN_Lx_3_TGACCA_L006_R1_001.fastq.ft_val_1.fq,BN_Lx_3_TGACCA_L006_R1_002.fastq.ft_val_1.fq,BN_Lx_3_TGACCA_L006_R1_003.fastq.ft_val_1.fq,BN_Lx_3_TGACCA_L006_R1_004.fastq.ft_val_1.fq,BN_Lx_3_TGACCA_L006_R1_005.fastq.ft_val_1.fq,BN_Lx_3_TGACCA_L008_R1_001.fastq.ft_val_1.fq BN_Lx_3_TGACCA_L006_R2_001.fastq.ft_val_2.fq,BN_Lx_3_TGACCA_L006_R2_002.fastq.ft_val_2.fq,BN_Lx_3_TGACCA_L006_R2_003.fastq.ft_val_2.fq,BN_Lx_3_TGACCA_L006_R2_004.fastq.ft_val_2.fq,BN_Lx_3_TGACCA_L006_R2_005.fastq.ft_val_2.fq,BN_Lx_3_TGACCA_L008_R2_001.fastq.ft_val_2.fq
+
+cd /data/Users/flinks/IlluminaPolyA/SHRH1/fastq
+tophat2 -p 8 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/polyA/polyA.alignedReads/SHR1.polyA.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/SHRH_rn5_Genome SHR_H1_ACAGTG_L006_R1_001.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L006_R1_002.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L006_R1_003.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L006_R1_004.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L006_R1_005.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L007_R1_001.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L007_R1_002.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L007_R1_003.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L007_R1_004.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L007_R1_005.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L007_R1_006.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L007_R1_007.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L007_R1_008.fastq.ft_val_1.fq,SHR_H1_ACAGTG_L007_R1_009.fastq.ft_val_1.fq SHR_H1_ACAGTG_L006_R2_001.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L006_R2_002.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L006_R2_003.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L006_R2_004.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L006_R2_005.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L007_R2_001.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L007_R2_002.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L007_R2_003.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L007_R2_004.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L007_R2_005.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L007_R2_006.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L007_R2_007.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L007_R2_008.fastq.ft_val_2.fq,SHR_H1_ACAGTG_L007_R2_009.fastq.ft_val_2.fq
+
+cd /data/Users/flinks/IlluminaPolyA/SHRH2/fastq
+tophat2 -p 8 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/polyA/polyA.alignedReads/SHR2.polyA.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/SHRH_rn5_Genome SHR_H2_GCCAAT_L006_R1_001.fastq.ft_val_1.fq,SHR_H2_GCCAAT_L006_R1_002.fastq.ft_val_1.fq,SHR_H2_GCCAAT_L006_R1_003.fastq.ft_val_1.fq,SHR_H2_GCCAAT_L006_R1_004.fastq.ft_val_1.fq,SHR_H2_GCCAAT_L008_R1_001.fastq.ft_val_1.fq,SHR_H2_GCCAAT_L008_R1_002.fastq.ft_val_1.fq,SHR_H2_GCCAAT_L008_R1_003.fastq.ft_val_1.fq,SHR_H2_GCCAAT_L008_R1_004.fastq.ft_val_1.fq SHR_H2_GCCAAT_L006_R2_001.fastq.ft_val_2.fq,SHR_H2_GCCAAT_L006_R2_002.fastq.ft_val_2.fq,SHR_H2_GCCAAT_L006_R2_003.fastq.ft_val_2.fq,SHR_H2_GCCAAT_L006_R2_004.fastq.ft_val_2.fq,SHR_H2_GCCAAT_L008_R2_001.fastq.ft_val_2.fq,SHR_H2_GCCAAT_L008_R2_002.fastq.ft_val_2.fq,SHR_H2_GCCAAT_L008_R2_003.fastq.ft_val_2.fq,SHR_H2_GCCAAT_L008_R2_004.fastq.ft_val_2.fq
+
+cd /data/Users/flinks/IlluminaPolyA/SHRH3/fastq
+tophat2 -p 8 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/polyA/polyA.alignedReads/SHR3.polyA.v2 /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/SHRH_rn5_Genome SHR_H3_CAGATC_L006_R1_001.fastq.ft_val_1.fq,SHR_H3_CAGATC_L006_R1_002.fastq.ft_val_1.fq,SHR_H3_CAGATC_L006_R1_003.fastq.ft_val_1.fq,SHR_H3_CAGATC_L006_R1_004.fastq.ft_val_1.fq,SHR_H3_CAGATC_L006_R1_005.fastq.ft_val_1.fq,SHR_H3_CAGATC_L008_R1_001.fastq.ft_val_1.fq,SHR_H3_CAGATC_L008_R1_002.fastq.ft_val_1.fq,SHR_H3_CAGATC_L008_R1_003.fastq.ft_val_1.fq,SHR_H3_CAGATC_L008_R1_004.fastq.ft_val_1.fq SHR_H3_CAGATC_L006_R2_001.fastq.ft_val_2.fq,SHR_H3_CAGATC_L006_R2_002.fastq.ft_val_2.fq,SHR_H3_CAGATC_L006_R2_003.fastq.ft_val_2.fq,SHR_H3_CAGATC_L006_R2_004.fastq.ft_val_2.fq,SHR_H3_CAGATC_L006_R2_005.fastq.ft_val_2.fq,SHR_H3_CAGATC_L008_R2_001.fastq.ft_val_2.fq,SHR_H3_CAGATC_L008_R2_002.fastq.ft_val_2.fq,SHR_H3_CAGATC_L008_R2_003.fastq.ft_val_2.fq,SHR_H3_CAGATC_L008_R2_004.fastq.ft_val_2.fq
+
+cd /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/polyA/polyA.alignedReads/
+samtools sort ./BNLx1.polyA.v2/accepted_hits.bam BNLx1.polyA
+samtools sort ./BNLx2.polyA.v2/accepted_hits.bam BNLx2.polyA
+samtools sort ./BNLx3.polyA.v2/accepted_hits.bam BNLx3.polyA
+
+samtools sort ./SHR1.polyA.v2/accepted_hits.bam SHR1.polyA
+samtools sort ./SHR2.polyA.v2/accepted_hits.bam SHR2.polyA
+samtools sort ./SHR3.polyA.v2/accepted_hits.bam SHR3.polyA
+
+
+
+##################################################################################
+##  Consolidating Reads by Strain and Executing a Transcriptome Reconstruction  ##
+##################################################################################
+
+# bowtie version 2.1.0
+# tophat version 2.0.9
+# samtools version 0.1.19.0
+
+export PATH=$HOME/bin:$PATH
+export PYTHONPATH=$HOME/bin:$PYTHONPATH
+
+samtools merge - BNLx1.polyA.bam BNLx2.polyA.bam BNLx3.polyA.bam | samtools sort - BNLx.polyA 
+cufflinks -u --seed 1110 -p 4 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/polyA/polyA.reconstruction/BNLx.polyA BNLx.polyA.bam
+
+samtools merge - SHR1.polyA.bam SHR2.polyA.bam SHR3.polyA.bam | samtools sort - SHR.polyA 
+cufflinks -u --seed 1112 -p 4 -o /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/polyA/polyA.reconstruction/SHR.polyA SHR.polyA.bam
+
+###################################################
+###  Identify high confidence transcripts in R  ###
+###################################################
+
+/data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/polyA/polyA.reconstruction/
+R
+
+options(stringsAsFactors=FALSE)
+
+BNLx <- read.table(file="BNLx.polyA/transcripts.gtf",sep="\t",header=FALSE)
+BNLx$transcript_id = unlist(lapply(strsplit(BNLx$V9,split="; "),function(a) gsub("transcript_id ","",a[grep("transcript_id",a)])))
+
+BNLx.transcripts <- BNLx[BNLx$V3=="transcript",]
+## 52,184 transcript identified in BNLx polyA+ RNA
+
+BNLx.transcripts$FPKM = as.numeric(unlist(lapply(strsplit(BNLx.transcripts$V9,split="; "),function(a) gsub("FPKM ","",a[grep("FPKM",a)]))))
+
+BNLx.exon <- BNLx[BNLx$V3=="exon",]
+BNLx.exon$len = BNLx.exon$V5-BNLx.exon$V4 + 1
+BNLx.transcripts2 <- aggregate(BNLx.exon$len,by=list(transcript_id=BNLx.exon$transcript_id),sum)
+colnames(BNLx.transcripts2)[2]="mRNA.length"
+
+BNLx.transcripts <- merge(BNLx.transcripts,BNLx.transcripts2,by="transcript_id")
+
+BNLx.highConf <- BNLx[BNLx$transcript_id %in% BNLx.transcripts$transcript_id[BNLx.transcripts$FPKM>1 & BNLx.transcripts$mRNA.length>350],]
+length(unique(BNLx.highConf$transcript_id))
+#23,850 transcripts
+
+write.table(BNLx.highConf[,paste("V",c(1:9),sep="")],file="BNLx.polyA/highConf.transcripts.gtf",sep="\t",row.names=FALSE,col.names=FALSE,quote=FALSE)
+
+
+###  SHR  ###
+SHR <- read.table(file="SHR.polyA/transcripts.gtf",sep="\t",header=FALSE)
+SHR$transcript_id = unlist(lapply(strsplit(SHR$V9,split="; "),function(a) gsub("transcript_id ","",a[grep("transcript_id",a)])))
+
+SHR.transcripts <- SHR[SHR$V3=="transcript",]
+## 59,425 transcript identified in SHR polyA+ RNA
+
+SHR.transcripts$FPKM = as.numeric(unlist(lapply(strsplit(SHR.transcripts$V9,split="; "),function(a) gsub("FPKM ","",a[grep("FPKM",a)]))))
+
+SHR.exon <- SHR[SHR$V3=="exon",]
+SHR.exon$len = SHR.exon$V5-SHR.exon$V4 + 1
+SHR.transcripts2 <- aggregate(SHR.exon$len,by=list(transcript_id=SHR.exon$transcript_id),sum)
+colnames(SHR.transcripts2)[2]="mRNA.length"
+
+SHR.transcripts <- merge(SHR.transcripts,SHR.transcripts2,by="transcript_id")
+
+SHR.highConf <- SHR[SHR$transcript_id %in% SHR.transcripts$transcript_id[SHR.transcripts$FPKM>1 & SHR.transcripts$mRNA.length>350],]
+length(unique(SHR.highConf$transcript_id))
+#22,893 transcripts
+
+write.table(SHR.highConf[,paste("V",c(1:9),sep="")],file="SHR.polyA/highConf.transcripts.gtf",sep="\t",row.names=FALSE,col.names=FALSE,quote=FALSE)
+
+###############################################################################
+###  Merge high confidence transcripts from strain-specific transcriptomes  ###
+###############################################################################
+
+export PATH=$HOME/bin:$PATH
+export PYTHONPATH=$HOME/bin:$PYTHONPATH
+
+cuffmerge -p 4 -o polyA -s /data/Tabastore3/LauraS/BNLx.SHR/RNA-Seq/index/rn5_No_Random.fa assemblies.txt
+
+R
+options(stringsAsFactors=FALSE)
+gtf <- read.table(file="polyA/merged.gtf",sep="\t",header=FALSE)
+gtf$transcript_id = unlist(lapply(strsplit(gtf$V9,split="; "),function(a) gsub("transcript_id ","",a[grep("transcript_id",a)])))
+gtf$gene_id = unlist(lapply(strsplit(gtf$V9,split="; "),function(a) gsub("gene_id ","",a[grep("gene_id",a)])))
+length(unique(gtf$transcript_id))
+#27,839 transcripts
+length(unique(gtf$gene_id))
+#16,568 genes
